@@ -9,7 +9,7 @@ const bosqueSol =
 const bosqueNiebla =
   "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1400&q=80";
 const sendero =
-  "https://images.unsplash.com/photo-1434725400441-fe00c1b73809?auto=format&fit=crop&w=1400&q=80";
+  "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1400&q=80";
 const hoja =
   "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=1400&q=80";
 
@@ -51,7 +51,7 @@ const compromisos = [
   },
   {
     img: sendero,
-    alt: "Sendero en el bosque",
+    alt: "Bosque con luz entre los árboles",
     titulo: "Acompañar al socio",
     texto:
       "Formación continua, carné digital y solvencia gremial para cada perito y técnico superior forestal.",
