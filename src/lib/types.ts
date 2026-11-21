@@ -1,4 +1,4 @@
-export type Rol = "dir_nacional" | "seccional" | "socio";
+export type Rol = "super_admin" | "seccional" | "socio";
 
 export type Seccional =
   | "Mérida"

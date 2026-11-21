@@ -70,18 +70,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 <span className="block font-serif text-base font-semibold tracking-tight text-forest-900">
                   APERTESUFORAVEN
                 </span>
-                <span className="block text-[10px] uppercase tracking-[0.2em] text-muted">
+                <span className="hidden text-[10px] uppercase tracking-[0.2em] text-muted sm:block">
                   Peritos · Técnicos Superiores Forestales
                 </span>
               </span>
             </Link>
-            <nav className="flex items-center gap-7 text-sm text-forest-900">
-              <Link href="/directorio" className="nav-link">Directorio</Link>
-              <Link href="/seccionales" className="nav-link">Seccionales</Link>
-              <Link href="/nosotros" className="nav-link">Nosotros</Link>
+            <nav className="flex items-center gap-4 text-sm text-forest-900 sm:gap-7">
+              <Link href="/directorio" className="nav-link hidden md:inline">Directorio</Link>
+              <Link href="/seccionales" className="nav-link hidden md:inline">Seccionales</Link>
+              <Link href="/nosotros" className="nav-link hidden md:inline">Nosotros</Link>
               <Link
                 href="/login"
-                className="inline-flex items-center gap-1.5 rounded-sm bg-forest-800 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-forest-900"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-sm bg-forest-800 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] sm:px-4 sm:text-xs sm:tracking-[0.15em] text-white transition hover:bg-forest-900"
               >
                 Acceso socios
               </Link>
