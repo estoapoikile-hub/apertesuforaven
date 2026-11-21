@@ -5,7 +5,7 @@ import { sociosMock } from "@/lib/mock-socios";
 import { esSolvente, eventosSocio, mesesCuota, oportunidades } from "@/lib/mock-panel";
 import { Bloque, EstadoPill, PanelShell, PanelSkeleton, PermisosRol } from "../_components/shell";
 
-export const metadata: Metadata = { title: "Mi panel · APERTESUFORAVEN" };
+export const metadata: Metadata = { title: "Mi panel | APERTESUFORAVEN" };
 
 export default function SocioPage() {
   return (
@@ -71,17 +71,17 @@ async function SocioPanel() {
 
             <div className="relative flex items-start justify-between gap-4">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold-200">
+                <p className="text-xs font-semibold text-gold-200">
                   Carné de socio
                 </p>
-                <p className="mt-1 font-serif text-lg">APERTESUFORAVEN</p>
+                <p className="mt-1 font-display text-lg">APERTESUFORAVEN</p>
               </div>
               <EstadoPill ok={solvente} si="Solvente 2026" no="Cuota pendiente" />
             </div>
 
             <div className="relative mt-8 flex items-end justify-between gap-6">
               <div className="min-w-0">
-                <p className="font-serif text-3xl leading-tight sm:text-[2.1rem]">{user.nombre}</p>
+                <p className="font-display text-3xl leading-tight sm:text-[2.1rem]">{user.nombre}</p>
                 <p className="mt-1 text-sm text-forest-100/75">{user.titulo}</p>
 
                 <dl className="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
@@ -92,7 +92,7 @@ async function SocioPanel() {
                     ["Promoción", socio?.promocion.toString() ?? "—"],
                   ].map(([k, v]) => (
                     <div key={k}>
-                      <dt className="text-[10px] uppercase tracking-[0.2em] text-forest-100/55">{k}</dt>
+                      <dt className="text-xs text-forest-100/55">{k}</dt>
                       <dd className="mt-0.5 font-medium tabular-nums">{v}</dd>
                     </div>
                   ))}
@@ -104,10 +104,10 @@ async function SocioPanel() {
             </div>
           </div>
           <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-xs">
-            <button type="button" className="font-semibold uppercase tracking-[0.12em] text-forest-700 hover:text-forest-900">
+            <button type="button" className="font-semibold text-forest-700 hover:text-forest-900">
               Descargar PDF
             </button>
-            <button type="button" className="font-semibold uppercase tracking-[0.12em] text-forest-700 hover:text-forest-900">
+            <button type="button" className="font-semibold text-forest-700 hover:text-forest-900">
               Añadir al móvil
             </button>
             <span className="text-muted">Cualquiera puede verificarlo en el directorio público.</span>
@@ -131,7 +131,7 @@ async function SocioPanel() {
               const futuro = i > mesActual;
               return (
                 <div key={m} className="bg-paper px-3 py-4 text-center">
-                  <p className="text-[11px] uppercase tracking-[0.14em] text-muted">{m}</p>
+                  <p className="text-xs text-muted">{m}</p>
                   <p
                     className={`mt-2 text-sm font-semibold ${
                       pagado ? "text-forest-700" : futuro ? "text-muted/50" : "text-amber-700"
@@ -164,7 +164,7 @@ async function SocioPanel() {
           <ul className="divide-y divide-rule">
             {eventosSocio.map((e) => (
               <li key={e.titulo} className="flex items-center gap-5 px-6 py-4">
-                <span className="w-14 shrink-0 font-serif text-lg text-forest-800">{e.fecha}</span>
+                <span className="w-14 shrink-0 font-display text-lg text-forest-800">{e.fecha}</span>
                 <div>
                   <p className="font-medium text-forest-900">{e.titulo}</p>
                   <p className="text-xs text-muted">{e.lugar}</p>

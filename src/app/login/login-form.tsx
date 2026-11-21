@@ -14,7 +14,7 @@ export type CuentaDemo = {
 };
 
 const input =
-  "mt-2 w-full rounded-sm border border-rule bg-background px-3.5 py-3 text-[15px] text-forest-950 outline-none transition placeholder:text-muted/60 focus:border-forest-700 focus:bg-paper focus:ring-4 focus:ring-forest-200/60";
+  "mt-2 w-full rounded-md border border-rule bg-background px-3.5 py-3 text-[15px] text-forest-950 outline-none transition placeholder:text-muted/60 focus:border-forest-700 focus:bg-paper focus:ring-4 focus:ring-forest-200/60";
 
 export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
   const [state, action, pending] = useActionState<LoginState, FormData>(login, undefined);
@@ -30,17 +30,16 @@ export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
   }
 
   return (
-    <div className="animate-fade-up">
-      <p className="eyebrow">Acceso socios</p>
-      <h1 className="mt-3 text-4xl font-medium text-forest-900 sm:text-[2.75rem]">
-        Bienvenido de vuelta
+    <div className="">
+      <h1 className="text-4xl text-forest-950 sm:text-5xl">
+        Entra a tu panel
       </h1>
       <p className="mt-3 max-w-md text-forest-900/70">
-        Entra con tu correo y tu contraseña para ir a tu panel.
+        Usa tu correo y tu contraseña de socio.
       </p>
 
       <form action={action} className="mt-9 max-w-md">
-        <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-[0.15em] text-muted">
+        <label htmlFor="email" className="block text-xs font-semibold text-muted">
           Correo electrónico
         </label>
         <input
@@ -59,7 +58,7 @@ export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
         />
 
         <div className="mt-5 flex items-baseline justify-between">
-          <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-[0.15em] text-muted">
+          <label htmlFor="password" className="block text-xs font-semibold text-muted">
             Contraseña
           </label>
           <button
@@ -97,7 +96,7 @@ export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
         <button
           type="submit"
           disabled={pending}
-          className="group mt-7 flex w-full items-center justify-center gap-2 bg-forest-800 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-forest-900 disabled:cursor-wait disabled:opacity-70"
+          className="group mt-7 flex w-full items-center justify-center gap-2 bg-forest-800 py-3.5 text-sm font-semibold text-white transition hover:bg-forest-900 disabled:cursor-wait disabled:opacity-70"
         >
           {pending ? (
             <>
@@ -107,7 +106,6 @@ export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
           ) : (
             <>
               Entrar
-              <span aria-hidden className="transition group-hover:translate-x-1">→</span>
             </>
           )}
         </button>
@@ -117,7 +115,7 @@ export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
       <div className="mt-12 max-w-xl">
         <div className="flex items-center gap-3">
           <span className="h-px flex-1 bg-rule" />
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-700">
+          <p className="text-sm font-semibold text-forest-800">
             Cuentas de prueba
           </p>
           <span className="h-px flex-1 bg-rule" />
@@ -135,14 +133,14 @@ export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
                   type="button"
                   onClick={() => usarCuenta(c)}
                   aria-pressed={activa}
-                  className={`group flex w-full items-center gap-4 border px-4 py-3.5 text-left transition ${
+                  className={`group flex w-full items-center gap-4 rounded-lg border px-4 py-3.5 text-left transition ${
                     activa
                       ? "border-forest-700 bg-forest-100/60 ring-1 ring-forest-700"
                       : "border-rule bg-paper hover:border-forest-500 hover:bg-forest-100/30"
                   }`}
                 >
                   <span
-                    className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-serif text-sm font-semibold transition ${
+                    className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-sm font-semibold transition ${
                       activa ? "bg-forest-800 text-gold-200" : "bg-sand text-forest-800"
                     }`}
                   >
@@ -150,12 +148,12 @@ export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="flex flex-wrap items-baseline gap-x-2">
-                      <span className="font-serif text-[17px] text-forest-900">{c.rol}</span>
+                      <span className="font-display text-lg text-forest-950">{c.rol}</span>
                       <span className="text-xs text-muted">{c.nombre}</span>
                     </span>
-                    <span className="mt-0.5 flex flex-wrap gap-x-2 font-mono text-xs text-forest-900/60">
+                    <span className="mt-0.5 flex flex-wrap gap-x-3 text-[13px] text-muted">
                       <span className="truncate">{c.email}</span>
-                      <span className="text-forest-800">{c.password}</span>
+                      <span className="font-medium text-forest-800">{c.password}</span>
                     </span>
                   </span>
                   <span
@@ -164,7 +162,7 @@ export function LoginForm({ cuentas }: { cuentas: CuentaDemo[] }) {
                       activa ? "text-forest-800" : "text-muted/50 group-hover:translate-x-0.5 group-hover:text-forest-700"
                     }`}
                   >
-                    {activa ? "✓" : "→"}
+                    {activa ? "✓" : ""}
                   </span>
                 </button>
               </li>

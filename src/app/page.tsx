@@ -1,360 +1,244 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CurvasDeNivel } from "@/components/curvas-de-nivel";
+import { rolInfo } from "@/lib/auth/demo-users";
 import { sociosMock, seccionalesDisponibles } from "@/lib/mock-socios";
 
-const hero =
-  "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2400&q=80";
-const bosqueNiebla =
-  "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1400&q=80";
 const bosqueSol =
   "https://images.unsplash.com/photo-1476231682828-37e571bc172f?auto=format&fit=crop&w=1400&q=80";
+const bosqueNiebla =
+  "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1400&q=80";
 const sendero =
   "https://images.unsplash.com/photo-1434725400441-fe00c1b73809?auto=format&fit=crop&w=1400&q=80";
 const hoja =
   "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=1400&q=80";
-const paramo =
-  "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1400&q=80";
 
 const timeline = [
   {
     year: "1948",
     titulo: "Decreto fundacional",
-    texto:
-      "Rómulo Gallegos firma el decreto que crea la Escuela de Ingeniería Forestal en Mérida.",
+    texto: "Rómulo Gallegos firma el decreto que crea la Escuela de Ingeniería Forestal en Mérida.",
   },
   {
     year: "1952",
     titulo: "Facultad de Ciencias Forestales",
-    texto:
-      "El 15 de septiembre se establece oficialmente la Facultad en la Universidad de Los Andes.",
+    texto: "El 15 de septiembre se establece oficialmente la Facultad en la Universidad de Los Andes.",
   },
   {
     year: "1953",
     titulo: "Escuela de Capacitación Forestal",
-    texto:
-      "Comienza la formación de los peritos forestales en el campus de Chorros de Milla.",
+    texto: "Empieza la formación de peritos forestales en el campus de Chorros de Milla.",
   },
   {
     year: "1997",
     titulo: "Nace la ETSUFOR",
-    texto:
-      "La Escuela Técnica Superior Forestal sustituye a la antigua escuela de capacitación.",
+    texto: "La Escuela Técnica Superior Forestal sustituye a la antigua escuela de capacitación.",
   },
   {
     year: "Hoy",
     titulo: "APERTESUFORAVEN",
-    texto:
-      "El gremio agrupa a los egresados en seccionales por todo el territorio nacional.",
+    texto: "El gremio agrupa a los egresados en seccionales por todo el país.",
   },
 ];
 
-const misiones = [
+const compromisos = [
   {
     img: bosqueNiebla,
     alt: "Bosque nublado venezolano",
     titulo: "Proteger el patrimonio forestal",
     texto:
-      "Defender el bosque venezolano con criterios técnicos: manejo sostenible, conservación de cuencas y prevención de incendios.",
+      "Manejo sostenible, conservación de cuencas y prevención de incendios, siempre con criterio técnico.",
   },
   {
     img: sendero,
-    alt: "Sendero en bosque",
-    titulo: "Formar y acompañar al socio",
+    alt: "Sendero en el bosque",
+    titulo: "Acompañar al socio",
     texto:
-      "Actualización continua, carné digital y solvencia gremial para cada perito y técnico superior forestal del país.",
+      "Formación continua, carné digital y solvencia gremial para cada perito y técnico superior forestal.",
   },
   {
     img: hoja,
     alt: "Hoja verde en detalle",
     titulo: "Representar al gremio",
     texto:
-      "Interlocutor ante el Estado, universidades y sector privado en todo lo que afecta el ejercicio forestal.",
+      "Interlocución ante el Estado, las universidades y el sector privado en todo lo que afecta al ejercicio forestal.",
   },
 ];
 
-export default function Home() {
-  const totalSocios = sociosMock.length;
+const niveles = [
+  { rol: "super_admin" as const, titulo: "Dirección Nacional" },
+  { rol: "seccional" as const, titulo: "Seccionales" },
+  { rol: "socio" as const, titulo: "Socios" },
+];
 
+export default function Home() {
   return (
     <div>
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src={hero}
-            alt="Bosque de los Andes venezolanos"
-            fill
-            priority
-            className="object-cover animate-slow-zoom"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-forest-950/95 via-forest-900/80 to-forest-800/40" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,transparent_0%,rgba(13,42,30,0.6)_90%)]" />
-        </div>
+      {/* PORTADA: curvas de nivel de la sierra */}
+      <section className="relative isolate overflow-hidden bg-forest-950 text-white">
+        <CurvasDeNivel className="absolute inset-0 -z-10 h-full w-full" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-forest-950 via-forest-950/75 to-transparent" />
 
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-28 sm:py-36 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-9">
-            <p className="animate-fade-up flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-gold-200">
-              <span className="h-px w-8 bg-gold-500" />
-              Asociación gremial · Fundada 1948
-            </p>
-            <h1 className="animate-fade-up delay-100 mt-6 max-w-4xl text-[2.6rem] font-medium leading-[1.02] text-white sm:text-6xl lg:text-[4.25rem]">
-              Siete décadas cuidando el bosque{" "}
-              <span className="italic text-gold-200">venezolano</span>.
-            </h1>
-            <p className="animate-fade-up delay-200 mt-8 max-w-2xl text-lg leading-relaxed text-forest-100">
-              APERTESUFORAVEN agrupa a los peritos y técnicos superiores
-              forestales de Venezuela, herederos de una escuela que nació con
-              un decreto de Rómulo Gallegos en 1948.
-            </p>
-            <div className="animate-fade-up delay-300 mt-10 flex flex-wrap items-center gap-4">
-              <Link
-                href="/directorio"
-                className="inline-flex items-center gap-2 bg-gold-500 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-forest-950 transition hover:bg-gold-200"
-              >
-                Directorio público
-                <span aria-hidden>→</span>
-              </Link>
-              <Link
-                href="/login"
-                className="inline-flex items-center gap-2 border border-white/40 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-white/10"
-              >
-                Acceso socios
-              </Link>
-            </div>
+        <div className="mx-auto max-w-6xl px-4 pb-16 pt-24 sm:pt-32">
+          <p className="aparecer max-w-lg text-[15px] text-forest-200">
+            Asociación de Peritos y Técnicos Superiores Forestales de Venezuela
+          </p>
+          <h1
+            className="aparecer mt-5 max-w-3xl text-[2.9rem] text-white sm:text-7xl lg:text-[5.4rem]"
+            style={{ animationDelay: "0.1s", fontStretch: "70%" }}
+          >
+            Los técnicos que miden, cuidan y defienden el bosque venezolano
+          </h1>
+          <p
+            className="aparecer mt-7 max-w-xl text-lg leading-relaxed text-forest-100/85"
+            style={{ animationDelay: "0.2s" }}
+          >
+            Somos el gremio de los egresados de la escuela forestal de Mérida,
+            fundada por decreto de Rómulo Gallegos en 1948.
+          </p>
+          <div className="aparecer mt-10 flex flex-wrap gap-3" style={{ animationDelay: "0.3s" }}>
+            <Link
+              href="/directorio"
+              className="rounded-md bg-gold-500 px-6 py-3.5 font-semibold text-forest-950 transition hover:bg-gold-200"
+            >
+              Buscar un socio
+            </Link>
+            <Link
+              href="/login"
+              className="rounded-md border border-white/30 px-6 py-3.5 font-semibold text-white transition hover:border-white/60 hover:bg-white/5"
+            >
+              Entrar a mi panel
+            </Link>
           </div>
 
-          {/* Pie institucional del hero */}
-          <div className="animate-fade-up delay-400 relative lg:col-span-3">
-            <div className="border-l border-gold-500/40 pl-5 text-sm text-forest-100/85">
-              <p className="eyebrow !text-gold-200">Sede histórica</p>
-              <p className="mt-2 font-serif text-xl leading-snug text-white">
-                ETSUFOR — ULA
-              </p>
-              <p className="mt-1 text-forest-100/75">
-                Chorros de Milla, Mérida — Venezuela
-              </p>
-            </div>
-          </div>
+          <dl className="mt-20 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/15 pt-6">
+            {[
+              ["1948", "año de fundación de la escuela"],
+              [seccionalesDisponibles.length.toString(), "seccionales en el país"],
+              [sociosMock.length.toString(), "socios en el directorio"],
+            ].map(([k, v]) => (
+              <div key={v}>
+                <dt className="sr-only">{v}</dt>
+                <dd className="font-display text-3xl text-white sm:text-4xl">{k}</dd>
+                <dd className="mt-1 text-sm text-forest-200">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
-      {/* KPIs institucionales */}
-      <section className="border-b border-rule bg-paper">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-rule px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          {[
-            { k: "1948", v: "Año fundacional de la escuela" },
-            { k: seccionalesDisponibles.length.toString(), v: "Seccionales activas en el país" },
-            { k: totalSocios.toLocaleString("es-VE"), v: "Socios en directorio (datos de prueba)" },
-          ].map((kpi, i) => (
-            <div key={i} className="px-4 py-8 sm:px-8">
-              <p className="font-serif text-4xl font-medium text-forest-800">{kpi.k}</p>
-              <p className="mt-2 text-xs uppercase tracking-[0.18em] text-muted">
-                {kpi.v}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* HISTORIA — editorial */}
+      {/* HISTORIA */}
       <section className="mx-auto max-w-6xl px-4 py-24">
-        <div className="grid gap-16 lg:grid-cols-12 lg:items-start">
+        <div className="grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p className="eyebrow">Nuestra historia</p>
-            <h2 className="mt-3 max-w-xl text-4xl font-medium text-forest-900 sm:text-5xl">
+            <h2 className="max-w-xl text-4xl text-forest-950 sm:text-5xl">
               De la Escuela de Capacitación Forestal a la ETSUFOR
             </h2>
-
-            <p className="dropcap prose-measure mt-8 text-lg leading-relaxed text-forest-900/85">
-              El gremio hunde sus raíces en Mérida, donde en 1948 el entonces
-              presidente <strong>Rómulo Gallegos</strong> —autor de{" "}
-              <em>Doña Bárbara</em>— firmó el decreto que fundó la Escuela de
-              Ingeniería Forestal. De ahí se desprendió la Escuela de
-              Capacitación Forestal, que durante décadas formó a los{" "}
-              <em>peritos forestales</em>, hasta que en <strong>1997</strong>{" "}
-              se transformó en la actual Escuela Técnica Superior Forestal
-              (ETSUFOR) de la ULA.
+            <p className="font-prose prose-measure mt-8 text-lg text-foreground/85">
+              El gremio nace en Mérida. En 1948 el presidente Rómulo Gallegos,
+              autor de <em>Doña Bárbara</em>, firmó el decreto que fundó la
+              Escuela de Ingeniería Forestal. De ella salió la Escuela de
+              Capacitación Forestal, que durante décadas formó a los peritos
+              forestales, hasta que en 1997 se transformó en la actual Escuela
+              Técnica Superior Forestal (ETSUFOR) de la Universidad de Los Andes.
             </p>
 
-            <figure className="mt-10 border-l-2 border-gold-500 pl-6">
-              <blockquote className="font-serif text-xl italic leading-snug text-forest-900">
-                &ldquo;La defensa del bosque es tarea técnica y es también
-                tarea de país.&rdquo;
-              </blockquote>
-              <figcaption className="mt-3 text-xs uppercase tracking-[0.18em] text-muted">
-                Principio gremial · APERTESUFORAVEN
-              </figcaption>
-            </figure>
-
-            <ol className="mt-12 space-y-7 border-l border-rule pl-7">
-              {timeline.map((t, i) => (
+            <ol className="mt-14">
+              {timeline.map((t) => (
                 <li
                   key={t.year}
-                  className="animate-fade-up relative"
-                  style={{ animationDelay: `${i * 0.08}s` }}
+                  className="grid grid-cols-[5.5rem_1fr] gap-6 border-t border-rule py-5 sm:grid-cols-[7rem_1fr]"
                 >
-                  <span className="absolute -left-[33px] top-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-gold-500 bg-background">
-                    <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
-                  </span>
-                  <p className="font-serif text-lg font-semibold text-forest-800">
+                  <p className="font-display text-3xl text-forest-800" style={{ fontStretch: "70%" }}>
                     {t.year}
                   </p>
-                  <p className="mt-1 font-medium text-forest-900">{t.titulo}</p>
-                  <p className="mt-1 max-w-md text-sm text-forest-900/70">
-                    {t.texto}
-                  </p>
+                  <div>
+                    <p className="font-semibold text-forest-950">{t.titulo}</p>
+                    <p className="mt-1 text-[15px] text-muted">{t.texto}</p>
+                  </div>
                 </li>
               ))}
             </ol>
           </div>
 
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <figure className="relative">
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <Image
-                  src={bosqueSol}
-                  alt="Bosque con luz del amanecer"
-                  fill
-                  className="object-cover duotone"
-                  sizes="(min-width: 1024px) 40vw, 100vw"
-                />
-                <div className="absolute inset-0 bg-forest-900/30" />
-                <div className="absolute inset-0 bg-gradient-to-br from-forest-800/40 via-transparent to-gold-500/15 mix-blend-multiply" />
-              </div>
-              <div className="absolute -bottom-6 -left-4 max-w-xs bg-paper p-6 shadow-md ring-1 ring-rule">
-                <p className="eyebrow">Campus universitario</p>
-                <p className="mt-2 font-serif text-lg text-forest-900">
-                  Chorros de Milla
-                </p>
-                <p className="mt-1 text-sm text-muted">Mérida, Venezuela</p>
-              </div>
-            </figure>
-          </div>
+          <figure className="lg:col-span-5 lg:pt-3">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+              <Image
+                src={bosqueSol}
+                alt="Bosque con la luz del amanecer"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
+            </div>
+            <figcaption className="mt-3 text-sm text-muted">
+              Campus de Chorros de Milla, Mérida. Aquí se forman los técnicos
+              superiores forestales desde 1953.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      {/* MISIÓN */}
-      <section className="rule-top bg-paper">
+      {/* COMPROMISOS */}
+      <section className="bg-forest-100/60">
         <div className="mx-auto max-w-6xl px-4 py-24">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
-              <p className="eyebrow">Qué hacemos</p>
-              <h2 className="mt-3 text-4xl font-medium text-forest-900 sm:text-5xl">
-                Una asociación con tres compromisos.
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-relaxed text-forest-900/70">
-              Tres ejes orientan al gremio: el bosque, el socio y la
-              representación institucional. Cada decisión responde a alguno de
-              ellos.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-px bg-rule sm:grid-cols-3">
-            {misiones.map((m, i) => (
-              <article
-                key={m.titulo}
-                className="group relative flex flex-col bg-paper p-8 transition hover:bg-forest-100/40"
-              >
-                <div className="relative mb-6 aspect-[4/3] overflow-hidden">
+          <h2 className="max-w-2xl text-4xl text-forest-950 sm:text-5xl">
+            Tres compromisos guían al gremio
+          </h2>
+          <div className="mt-14 grid gap-10 sm:grid-cols-3">
+            {compromisos.map((m) => (
+              <article key={m.titulo}>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
                   <Image
                     src={m.img}
                     alt={m.alt}
                     fill
-                    className="object-cover duotone transition duration-700 group-hover:scale-105"
-                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover"
+                    sizes="(min-width: 640px) 33vw, 100vw"
                   />
-                  <div className="absolute inset-0 bg-forest-900/25 mix-blend-multiply" />
                 </div>
-                <p className="font-serif text-sm font-semibold text-gold-700">
-                  0{i + 1}
-                </p>
-                <h3 className="mt-2 font-serif text-2xl text-forest-900">
-                  {m.titulo}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-forest-900/75">
-                  {m.texto}
-                </p>
+                <h3 className="mt-5 text-2xl text-forest-950">{m.titulo}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted">{m.texto}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TRES NIVELES */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src={paramo}
-            alt="Páramo venezolano"
-            fill
-            className="object-cover duotone"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-forest-950/90" />
-          <div className="absolute inset-0 bg-gradient-to-br from-forest-950 via-forest-900/80 to-forest-800/60" />
+      {/* LA PLATAFORMA */}
+      <section className="mx-auto max-w-6xl px-4 py-24">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl text-forest-950 sm:text-5xl">
+              Cada miembro del gremio tiene su panel
+            </h2>
+            <p className="mt-4 text-lg text-muted">
+              Entras con tu correo y ves solo lo que te corresponde según tu
+              papel en la asociación.
+            </p>
+          </div>
+          <Link
+            href="/login"
+            className="self-start rounded-md bg-forest-800 px-6 py-3.5 font-semibold text-white transition hover:bg-forest-950 md:self-auto"
+          >
+            Entrar a mi panel
+          </Link>
         </div>
-        <div className="relative mx-auto max-w-6xl px-4 py-24 text-white">
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
-              <p className="eyebrow !text-gold-200">La plataforma</p>
-              <h2 className="mt-3 text-4xl font-medium sm:text-5xl">
-                Tres niveles de acceso
-              </h2>
-              <p className="mt-5 max-w-2xl text-forest-100/85">
-                La aplicación respeta la estructura del gremio. Cada nivel
-                accede a la información y herramientas que le corresponden.
-              </p>
-            </div>
-            <div className="lg:col-span-5 lg:text-right">
-              <Link
-                href="/login"
-                className="inline-flex items-center gap-2 bg-gold-500 px-6 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-forest-950 transition hover:bg-gold-200"
-              >
-                Entrar como miembro
-                <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </div>
 
-          <div className="mt-14 grid gap-px bg-white/10 md:grid-cols-3">
-            {[
-              {
-                n: "01",
-                titulo: "Dirección Nacional",
-                texto:
-                  "Panel país: altas, gestión de seccionales, reportes consolidados y comunicaciones oficiales.",
-              },
-              {
-                n: "02",
-                titulo: "Seccional",
-                texto:
-                  "Panel regional: socios de la seccional, convocatorias, cobros y actas.",
-              },
-              {
-                n: "03",
-                titulo: "Socio",
-                texto:
-                  "Carné digital, solvencia, credenciales y oportunidades laborales.",
-              },
-            ].map((t) => (
-              <div
-                key={t.n}
-                className="relative bg-forest-950/70 p-8 transition hover:bg-forest-900/80"
-              >
-                <p className="font-serif text-xs font-semibold tracking-[0.25em] text-gold-200">
-                  {t.n}
-                </p>
-                <h3 className="mt-3 font-serif text-2xl text-white">
-                  {t.titulo}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-forest-100/80">
-                  {t.texto}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule md:grid-cols-3">
+          {niveles.map((n) => (
+            <div key={n.rol} className="bg-paper p-7">
+              <h3 className="text-2xl text-forest-950">{n.titulo}</h3>
+              <ul className="mt-4 space-y-2.5 text-[15px] text-foreground/80">
+                {rolInfo[n.rol].puede.slice(0, 3).map((p) => (
+                  <li key={p} className="flex gap-2.5">
+                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-500" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </section>
     </div>

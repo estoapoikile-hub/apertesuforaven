@@ -1,123 +1,77 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { sociosMock, seccionalesDisponibles } from "@/lib/mock-socios";
+import { sociosMock } from "@/lib/mock-socios";
+import { resumenSeccionales } from "@/lib/mock-panel";
+
+export const metadata: Metadata = { title: "Seccionales | APERTESUFORAVEN" };
 
 export default function SeccionalesPage() {
-  const resumen = seccionalesDisponibles.map((nombre) => {
-    const socios = sociosMock.filter((s) => s.seccional === nombre);
-    const activos = socios.filter((s) => s.activo).length;
-    const especialidades = new Set(socios.map((s) => s.especialidad)).size;
-    return { nombre, total: socios.length, activos, especialidades };
-  });
-
+  const resumen = resumenSeccionales();
   const totalSocios = sociosMock.length;
   const totalActivos = sociosMock.filter((s) => s.activo).length;
 
   return (
     <div>
-      {/* Encabezado */}
-      <section className="border-b border-rule bg-paper">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <p className="eyebrow">Delegaciones regionales</p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-medium text-forest-900 sm:text-5xl">
+      <section className="border-b border-rule">
+        <div className="mx-auto max-w-6xl px-4 pb-12 pt-16">
+          <h1 className="max-w-3xl text-5xl text-forest-950 sm:text-6xl" style={{ fontStretch: "72%" }}>
             Seccionales del gremio
           </h1>
-          <p className="prose-measure mt-5 text-forest-900/75">
-            Cada seccional cuenta con directiva, calendario y gestión propia.
-            Son el puente entre la Dirección Nacional y el socio en el
-            territorio.
+          <p className="prose-measure mt-5 text-lg text-muted">
+            Cada seccional tiene su propia directiva, calendario y gestión. Son
+            el puente entre la Dirección Nacional y los socios de cada región.
           </p>
-        </div>
-      </section>
 
-      {/* Resumen país */}
-      <section className="border-b border-rule bg-background">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-rule px-4 md:grid-cols-4">
-          {[
-            { k: resumen.length.toString(), v: "Seccionales" },
-            { k: totalSocios.toLocaleString("es-VE"), v: "Socios registrados" },
-            { k: totalActivos.toLocaleString("es-VE"), v: "Socios activos" },
-            {
-              k:
-                Math.round((totalActivos / Math.max(totalSocios, 1)) * 100) +
-                "%",
-              v: "Tasa de actividad",
-            },
-          ].map((kpi, i) => (
-            <div key={i} className="px-4 py-6">
-              <p className="font-serif text-3xl font-medium text-forest-800">
-                {kpi.k}
-              </p>
-              <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-muted">
-                {kpi.v}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Grid de seccionales */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="mb-8 flex items-baseline justify-between border-b border-rule pb-3">
-          <p className="eyebrow">Listado</p>
-          <p className="text-xs text-muted">Ordenadas alfabéticamente</p>
-        </div>
-
-        <div className="grid gap-px bg-rule sm:grid-cols-2 lg:grid-cols-3">
-          {resumen.map((s, i) => (
-            <article
-              key={s.nombre}
-              className="group relative flex flex-col bg-paper p-6 transition hover:bg-forest-100/30"
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h2 className="mt-1 font-serif text-2xl text-forest-900">
-                    {s.nombre}
-                  </h2>
-                </div>
-                <span
-                  aria-hidden
-                  className="h-10 w-10 rounded-full border border-gold-500/40 bg-gold-200/30"
-                />
+          <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-4">
+            {[
+              [resumen.length.toString(), "seccionales"],
+              [totalSocios.toString(), "socios registrados"],
+              [totalActivos.toString(), "socios activos"],
+            ].map(([k, v]) => (
+              <div key={v}>
+                <dt className="sr-only">{v}</dt>
+                <dd className="font-display text-4xl text-forest-950" style={{ fontStretch: "70%" }}>
+                  {k}
+                </dd>
+                <dd className="text-sm text-muted">{v}</dd>
               </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
-              <dl className="mt-6 grid grid-cols-3 gap-4 border-t border-rule pt-5 text-sm">
-                <div>
-                  <dt className="text-[10px] uppercase tracking-wider text-muted">
-                    Socios
-                  </dt>
-                  <dd className="mt-1 font-serif text-xl font-medium text-forest-800">
-                    {s.total}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-[10px] uppercase tracking-wider text-muted">
-                    Activos
-                  </dt>
-                  <dd className="mt-1 font-serif text-xl font-medium text-forest-800">
-                    {s.activos}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-[10px] uppercase tracking-wider text-muted">
-                    Especialidades
-                  </dt>
-                  <dd className="mt-1 font-serif text-xl font-medium text-forest-800">
-                    {s.especialidades}
-                  </dd>
-                </div>
-              </dl>
-
-              <Link
-                href={`/directorio?seccional=${encodeURIComponent(s.nombre)}`}
-                className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-forest-800 transition hover:text-gold-700"
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="overflow-hidden rounded-lg border border-rule bg-paper">
+          <div className="hidden grid-cols-[1.3fr_1.5fr_0.7fr_0.7fr_1.2fr] gap-4 border-b border-rule bg-sand/60 px-6 py-3 text-sm font-semibold text-forest-950 md:grid">
+            <span>Seccional</span>
+            <span>Presidencia</span>
+            <span>Socios</span>
+            <span>Activos</span>
+            <span className="sr-only">Acción</span>
+          </div>
+          <ul className="divide-y divide-rule">
+            {resumen.map((s) => (
+              <li
+                key={s.nombre}
+                className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 px-6 py-5 md:grid-cols-[1.3fr_1.5fr_0.7fr_0.7fr_1.2fr]"
               >
-                Ver socios de {s.nombre} →
-              </Link>
-            </article>
-          ))}
+                <h2 className="font-display text-2xl text-forest-950">{s.nombre}</h2>
+                <p className="col-start-1 text-[15px] text-muted md:col-auto md:text-foreground/85">
+                  <span className="md:hidden">Preside </span>
+                  {s.presidente}
+                  <span className="md:hidden">. {s.total} socios, {s.activos} activos</span>
+                </p>
+                <p className="hidden tabular-nums text-[15px] md:block">{s.total}</p>
+                <p className="hidden tabular-nums text-[15px] md:block">{s.activos}</p>
+                <Link
+                  href={`/directorio?seccional=${encodeURIComponent(s.nombre)}`}
+                  className="col-start-2 row-span-2 row-start-1 justify-self-end rounded-md border border-rule px-3.5 py-2 text-sm font-semibold text-forest-800 transition hover:border-forest-800 md:col-auto md:row-auto"
+                >
+                  Ver socios
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </div>

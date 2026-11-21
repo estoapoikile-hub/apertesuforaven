@@ -28,7 +28,7 @@ export function SolicitudesIngreso({ solicitudes }: { solicitudes: Solicitud[] }
             </div>
             {e ? (
               <span
-                className={`text-xs font-semibold uppercase tracking-[0.14em] ${
+                className={`text-xs font-semibold ${
                   e === "aprobada" ? "text-forest-700" : "text-red-700"
                 }`}
               >
@@ -39,14 +39,14 @@ export function SolicitudesIngreso({ solicitudes }: { solicitudes: Solicitud[] }
                 <button
                   type="button"
                   onClick={() => setEstado((p) => ({ ...p, [s.id]: "aprobada" }))}
-                  className="bg-forest-800 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-forest-900"
+                  className="bg-forest-800 px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-forest-900"
                 >
                   Aprobar
                 </button>
                 <button
                   type="button"
                   onClick={() => setEstado((p) => ({ ...p, [s.id]: "rechazada" }))}
-                  className="border border-rule px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-forest-900 transition hover:border-red-300 hover:text-red-800"
+                  className="border border-rule px-3.5 py-2 text-xs font-semibold text-forest-900 transition hover:border-red-300 hover:text-red-800"
                 >
                   Rechazar
                 </button>
@@ -75,7 +75,7 @@ export function SociosSeccional({ socios }: { socios: FilaSocio[] }) {
     <div className="overflow-x-auto">
       <table className="w-full min-w-[640px] text-sm">
         <thead>
-          <tr className="border-b border-rule text-left text-[11px] uppercase tracking-[0.14em] text-muted">
+          <tr className="border-b border-rule text-left text-xs text-muted">
             <th className="px-6 py-3 font-semibold">Socio</th>
             <th className="px-3 py-3 font-semibold">Promoción</th>
             <th className="px-3 py-3 font-semibold">Especialidad</th>
@@ -109,7 +109,7 @@ export function SociosSeccional({ socios }: { socios: FilaSocio[] }) {
                     <button
                       type="button"
                       onClick={() => setPagados((p) => new Set(p).add(s.id))}
-                      className="whitespace-nowrap text-xs font-semibold uppercase tracking-[0.12em] text-forest-700 hover:text-forest-900"
+                      className="whitespace-nowrap text-xs font-semibold text-forest-700 hover:text-forest-900"
                     >
                       Registrar pago
                     </button>

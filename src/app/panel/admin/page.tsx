@@ -6,7 +6,7 @@ import { comunicados, esSolvente, resumenSeccionales, solicitudesIngreso } from 
 import { Bloque, Kpis, PanelShell, PanelSkeleton, PermisosRol } from "../_components/shell";
 import { SolicitudesIngreso } from "../_components/interactivos";
 
-export const metadata: Metadata = { title: "Dirección Nacional · APERTESUFORAVEN" };
+export const metadata: Metadata = { title: "Dirección Nacional | APERTESUFORAVEN" };
 
 export default function AdminPage() {
   return (
@@ -49,7 +49,7 @@ async function AdminPanel() {
           <Bloque
             titulo="Seccionales"
             accion={
-              <button type="button" className="text-xs font-semibold uppercase tracking-[0.12em] text-forest-700 hover:text-forest-900">
+              <button type="button" className="text-xs font-semibold text-forest-700 hover:text-forest-900">
                 + Nueva seccional
               </button>
             }
@@ -57,7 +57,7 @@ async function AdminPanel() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[560px] text-sm">
                 <thead>
-                  <tr className="border-b border-rule text-left text-[11px] uppercase tracking-[0.14em] text-muted">
+                  <tr className="border-b border-rule text-left text-xs text-muted">
                     <th className="px-6 py-3 font-semibold">Seccional</th>
                     <th className="px-3 py-3 font-semibold">Presidencia</th>
                     <th className="px-3 py-3 text-right font-semibold">Socios</th>
@@ -92,7 +92,7 @@ async function AdminPanel() {
           <Bloque
             titulo="Comunicados"
             accion={
-              <button type="button" className="text-xs font-semibold uppercase tracking-[0.12em] text-forest-700 hover:text-forest-900">
+              <button type="button" className="text-xs font-semibold text-forest-700 hover:text-forest-900">
                 + Publicar
               </button>
             }

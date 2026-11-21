@@ -6,7 +6,7 @@ import { actasSeccional, convocatoriasSeccional, esSolvente } from "@/lib/mock-p
 import { Bloque, Kpis, PanelShell, PanelSkeleton, PermisosRol } from "../_components/shell";
 import { SociosSeccional } from "../_components/interactivos";
 
-export const metadata: Metadata = { title: "Panel de seccional · APERTESUFORAVEN" };
+export const metadata: Metadata = { title: "Panel de seccional | APERTESUFORAVEN" };
 
 export default function SeccionalPage() {
   return (
@@ -41,7 +41,7 @@ async function SeccionalPanel() {
           <Bloque
             titulo="Socios de la seccional"
             accion={
-              <button type="button" className="text-xs font-semibold uppercase tracking-[0.12em] text-forest-700 hover:text-forest-900">
+              <button type="button" className="text-xs font-semibold text-forest-700 hover:text-forest-900">
                 + Proponer socio
               </button>
             }
@@ -61,7 +61,7 @@ async function SeccionalPanel() {
           <Bloque
             titulo="Convocatorias"
             accion={
-              <button type="button" className="text-xs font-semibold uppercase tracking-[0.12em] text-forest-700 hover:text-forest-900">
+              <button type="button" className="text-xs font-semibold text-forest-700 hover:text-forest-900">
                 + Convocar
               </button>
             }
@@ -69,7 +69,7 @@ async function SeccionalPanel() {
             <ul className="divide-y divide-rule">
               {convocatoriasSeccional.map((c) => (
                 <li key={c.titulo} className="flex items-center gap-5 px-6 py-4">
-                  <span className="w-16 shrink-0 whitespace-nowrap font-serif text-lg leading-tight text-forest-800">{c.fecha}</span>
+                  <span className="w-16 shrink-0 whitespace-nowrap font-display text-lg leading-tight text-forest-800">{c.fecha}</span>
                   <div className="min-w-0 flex-1">
                     <p className="font-medium text-forest-900">{c.titulo}</p>
                     <p className="text-xs text-muted">{c.lugar}</p>
@@ -89,7 +89,7 @@ async function SeccionalPanel() {
           <Bloque
             titulo="Actas"
             accion={
-              <button type="button" className="text-xs font-semibold uppercase tracking-[0.12em] text-forest-700 hover:text-forest-900">
+              <button type="button" className="text-xs font-semibold text-forest-700 hover:text-forest-900">
                 + Subir
               </button>
             }

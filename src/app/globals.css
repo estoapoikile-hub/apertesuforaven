@@ -1,28 +1,32 @@
 @import "tailwindcss";
 
+/*
+  Libreta de campo forestal.
+  Papel frío de levantamiento, verdes de bosque nublado y el amarillo
+  del araguaney (árbol nacional) como único acento.
+*/
 :root {
-  /* Neutros cálidos */
-  --background: #faf7f2;
+  --background: #f7f8f4; /* papel */
   --paper: #ffffff;
-  --foreground: #1c1c1c;
-  --muted: #6b6a66;
-  --rule: #e5e0d4;
+  --foreground: #18211c; /* tinta */
+  --muted: #5c6a61;
+  --rule: #dde3da;
 
-  /* Verde forestal institucional */
-  --forest-950: #0d2a1e;
-  --forest-900: #13382a;
-  --forest-800: #1b4332;
-  --forest-700: #255a42;
-  --forest-500: #3f7a5a;
-  --forest-200: #c7d8c9;
-  --forest-100: #e4ede3;
+  /* Verdes: selva → musgo → liquen */
+  --forest-950: #0f2e25; /* selva */
+  --forest-900: #163a2f;
+  --forest-800: #2f5d46; /* musgo: acción principal */
+  --forest-700: #3b6c53;
+  --forest-500: #5d8a6f;
+  --forest-200: #c4d4c4;
+  --forest-100: #dce5d8; /* liquen */
 
-  /* Acento dorado "perito" */
-  --gold-700: #8f6d3a;
-  --gold-500: #b08d57;
-  --gold-200: #e4d4b2;
+  /* Araguaney */
+  --gold-700: #7d5a0b; /* para texto sobre claro */
+  --gold-500: #f1b82d;
+  --gold-200: #f8dc8f;
 
-  --sand: #efe8d6;
+  --sand: #ebefe6;
   --accent: var(--gold-500);
 }
 
@@ -44,8 +48,9 @@
   --color-gold-200: var(--gold-200);
   --color-sand: var(--sand);
   --color-accent: var(--accent);
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-archivo);
+  --font-display: var(--font-archivo);
+  --font-prose: var(--font-source-serif);
 }
 
 html {
@@ -57,79 +62,72 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-feature-settings: "ss01", "cv11";
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
 }
 
-h1, h2, h3, .font-serif {
-  font-family: var(--font-serif), ui-serif, Georgia, serif;
-  letter-spacing: -0.015em;
+/* Títulos: Archivo semicondensada, como la rotulación de mapas y parques */
+h1, h2, h3, .font-display {
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  font-stretch: 78%;
+  font-weight: 650;
+  letter-spacing: -0.012em;
 }
 
-h1 { line-height: 1.05; }
-h2 { line-height: 1.1; }
+h1 { line-height: 1; letter-spacing: -0.02em; }
+h2 { line-height: 1.05; }
 
-.prose-measure { max-width: 68ch; }
+.prose-measure { max-width: 66ch; }
 
-/* Reglas finas institucionales */
+/* Texto largo en serif */
+.font-prose {
+  font-family: var(--font-source-serif), ui-serif, Georgia, serif;
+  line-height: 1.7;
+}
+
 .rule-top { border-top: 1px solid var(--rule); }
 .rule-bottom { border-bottom: 1px solid var(--rule); }
 
-/* Eyebrow / kicker */
+/* Etiqueta corta sobre un bloque: minúsculas, sin espaciado forzado */
 .eyebrow {
-  font-family: var(--font-sans), sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 11px;
+  font-family: var(--font-archivo), sans-serif;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: var(--gold-700);
-}
-
-/* Capitular editorial */
-.dropcap::first-letter {
-  font-family: var(--font-serif), serif;
-  float: left;
-  font-size: 3.6rem;
-  line-height: 0.85;
-  padding: 0.35rem 0.6rem 0 0;
   color: var(--forest-800);
-  font-weight: 600;
 }
 
-/* Duotono para imágenes Unsplash (homogeneiza orígenes) */
+/* Foco visible para teclado */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--gold-500);
+  outline-offset: 2px;
+}
+
+/* Imágenes homogeneizadas */
 .duotone {
-  filter: grayscale(100%) contrast(1.05) sepia(10%);
-}
-.duotone-forest {
-  mix-blend-mode: multiply;
-  background: linear-gradient(135deg, #13382a 0%, #255a42 100%);
+  filter: grayscale(100%) contrast(1.05);
 }
 
-/* Animaciones */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Curvas de nivel: se dibujan una sola vez al cargar */
+@keyframes trazar {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
 }
-@keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+.curva {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: trazar 2.4s cubic-bezier(.45,.05,.25,1) forwards;
 }
-@keyframes slow-zoom {
-  from { transform: scale(1); }
-  to   { transform: scale(1.06); }
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.aparecer { animation: aparecer 0.8s cubic-bezier(.2,.65,.3,1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .curva { animation: none; stroke-dashoffset: 0; }
+  .aparecer { animation: none; }
 }
 
-.animate-fade-up  { animation: fade-up 0.9s cubic-bezier(.2,.65,.3,1) both; }
-.animate-fade-in  { animation: fade-in 1.2s ease-out both; }
-.animate-slow-zoom { animation: slow-zoom 22s ease-in-out infinite alternate; }
-
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-
-/* Link con subrayado animado (nav) */
+/* Subrayado del menú */
 .nav-link {
   position: relative;
   padding-bottom: 2px;
@@ -139,9 +137,9 @@ h2 { line-height: 1.1; }
   position: absolute;
   left: 0;
   bottom: -2px;
-  height: 1px;
+  height: 2px;
   width: 0;
-  background: currentColor;
+  background: var(--gold-500);
   transition: width 0.25s ease;
 }
 .nav-link:hover::after { width: 100%; }
