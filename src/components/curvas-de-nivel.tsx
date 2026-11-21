@@ -73,3 +73,41 @@ export function CurvasDeNivel({ className = "" }: { className?: string }) {
     </svg>
   );
 }
+
+/* ---------- Mapa pequeño por región (estático, sin animación) ---------- */
+
+function hash(texto: string) {
+  let h = 2166136261;
+  for (const c of texto) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+  return h;
+}
+
+/** Mini mapa topográfico único para cada nombre (misma semilla, mismo mapa). */
+export function MiniMapa({ semilla, className = "" }: { semilla: string; className?: string }) {
+  const h = hash(semilla);
+  const r = (n: number) => ((h >>> (n * 3)) % 1000) / 1000;
+  const picos: Pico[] = [
+    { x: 380 + r(1) * 500, y: 120 + r(2) * 200, r: 300 + r(3) * 120, niveles: 13, semilla: r(4) * 6 },
+    { x: 120 + r(5) * 300, y: 420 + r(6) * 160, r: 200 + r(7) * 80, niveles: 8, semilla: r(8) * 6 },
+  ];
+  return (
+    <svg viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" className={className} aria-hidden>
+      {picos.map((p) =>
+        Array.from({ length: p.niveles }, (_, n) => {
+          const maestra = n % 5 === 0;
+          return (
+            <path
+              key={`${p.x}-${n}`}
+              d={curva(p, n)}
+              fill="none"
+              stroke={maestra ? "#f1b82d" : "#5d8a6f"}
+              strokeOpacity={maestra ? 0.55 : 0.6}
+              strokeWidth={maestra ? 1.4 : 0.8}
+              vectorEffect="non-scaling-stroke"
+            />
+          );
+        }),
+      )}
+    </svg>
+  );
+}

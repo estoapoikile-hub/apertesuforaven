@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MiniMapa } from "@/components/curvas-de-nivel";
 import { sociosMock } from "@/lib/mock-socios";
 import { resumenSeccionales } from "@/lib/mock-panel";
 
@@ -41,38 +42,62 @@ export default function SeccionalesPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="overflow-hidden rounded-lg border border-rule bg-paper">
-          <div className="hidden grid-cols-[1.3fr_1.5fr_0.7fr_0.7fr_1.2fr] gap-4 border-b border-rule bg-sand/60 px-6 py-3 text-sm font-semibold text-forest-950 md:grid">
-            <span>Seccional</span>
-            <span>Presidencia</span>
-            <span>Socios</span>
-            <span>Activos</span>
-            <span className="sr-only">Acción</span>
-          </div>
-          <ul className="divide-y divide-rule">
-            {resumen.map((s) => (
-              <li
-                key={s.nombre}
-                className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 px-6 py-5 md:grid-cols-[1.3fr_1.5fr_0.7fr_0.7fr_1.2fr]"
-              >
-                <h2 className="font-display text-2xl text-forest-950">{s.nombre}</h2>
-                <p className="col-start-1 text-[15px] text-muted md:col-auto md:text-foreground/85">
-                  <span className="md:hidden">Preside </span>
-                  {s.presidente}
-                  <span className="md:hidden">. {s.total} socios, {s.activos} activos</span>
-                </p>
-                <p className="hidden tabular-nums text-[15px] md:block">{s.total}</p>
-                <p className="hidden tabular-nums text-[15px] md:block">{s.activos}</p>
+        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {resumen.map((s) => {
+            const pct = s.total ? Math.round((s.activos / s.total) * 100) : 0;
+            return (
+              <li key={s.nombre}>
                 <Link
                   href={`/directorio?seccional=${encodeURIComponent(s.nombre)}`}
-                  className="col-start-2 row-span-2 row-start-1 justify-self-end rounded-md border border-rule px-3.5 py-2 text-sm font-semibold text-forest-800 transition hover:border-forest-800 md:col-auto md:row-auto"
+                  className="group block overflow-hidden rounded-3xl bg-paper shadow-[0_1px_2px_rgba(15,46,37,0.06),0_14px_34px_-18px_rgba(15,46,37,0.35)] ring-1 ring-forest-950/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_1px_2px_rgba(15,46,37,0.08),0_24px_44px_-18px_rgba(15,46,37,0.45)] motion-reduce:transform-none"
                 >
-                  Ver socios
+                  {/* Mapa de la región */}
+                  <div className="relative isolate h-40 overflow-hidden bg-forest-950">
+                    <MiniMapa
+                      semilla={s.nombre}
+                      className="absolute inset-0 -z-10 h-full w-full transition duration-700 group-hover:scale-110 motion-reduce:transform-none"
+                    />
+                    <div className="absolute inset-0 -z-10 bg-gradient-to-t from-forest-950/90 via-forest-950/30 to-transparent" />
+                    <h2
+                      className="absolute bottom-4 left-6 text-4xl text-white"
+                      style={{ fontStretch: "72%" }}
+                    >
+                      {s.nombre}
+                    </h2>
+                  </div>
+
+                  <div className="px-6 pb-6 pt-5">
+                    {/* Dato héroe: socios */}
+                    <p className="flex items-baseline gap-2">
+                      <span className="font-display text-4xl text-forest-950" style={{ fontStretch: "70%" }}>
+                        {s.total}
+                      </span>
+                      <span className="text-forest-950">socios</span>
+                      <span className="text-sm text-muted">· {s.activos} activos</span>
+                    </p>
+
+                    <div
+                      className="mt-3 h-2 overflow-hidden rounded-full bg-forest-100"
+                      role="img"
+                      aria-label={`${pct}% de socios activos`}
+                    >
+                      <div className="h-full rounded-full bg-forest-500" style={{ width: `${pct}%` }} />
+                    </div>
+
+                    <div className="mt-5 flex items-center justify-between gap-3">
+                      <p className="text-sm text-muted">
+                        Preside <span className="font-medium text-forest-950">{s.presidente}</span>
+                      </p>
+                      <span className="rounded-full bg-forest-100 px-3.5 py-1.5 text-sm font-semibold text-forest-800 transition group-hover:bg-forest-800 group-hover:text-white">
+                        Ver socios
+                      </span>
+                    </div>
+                  </div>
                 </Link>
               </li>
-            ))}
-          </ul>
-        </div>
+            );
+          })}
+        </ul>
       </section>
     </div>
   );
