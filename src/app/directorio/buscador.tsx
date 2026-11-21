@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { sociosMock, seccionalesDisponibles } from "@/lib/mock-socios";
 import type { Seccional } from "@/lib/types";
+import Link from "next/link";
+import { AvatarAnillos } from "@/components/avatar-anillos";
 
 const campo =
   "rounded-full border border-rule bg-paper px-5 py-3 text-[15px] outline-none transition focus:border-forest-700 focus:ring-4 focus:ring-forest-100";
@@ -95,9 +97,10 @@ export function Buscador() {
         ) : (
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {resultados.map((s) => (
-              <li
-                key={s.id}
-                className="group relative overflow-hidden rounded-3xl bg-paper p-6 shadow-[0_1px_2px_rgba(15,46,37,0.06),0_14px_34px_-20px_rgba(15,46,37,0.35)] ring-1 ring-forest-950/5 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(15,46,37,0.08),0_22px_40px_-20px_rgba(15,46,37,0.45)] motion-reduce:transform-none"
+              <li key={s.id}>
+              <Link
+                href={`/directorio/${s.id}`}
+                className="group relative block h-full overflow-hidden rounded-3xl bg-paper p-6 shadow-[0_1px_2px_rgba(15,46,37,0.06),0_14px_34px_-20px_rgba(15,46,37,0.35)] ring-1 ring-forest-950/5 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(15,46,37,0.08),0_22px_40px_-20px_rgba(15,46,37,0.45)] motion-reduce:transform-none"
               >
                 <div className="flex items-start justify-between gap-3">
                   <AvatarAnillos iniciales={`${s.nombre[0]}${s.apellido[0]}`} activo={s.activo} />
@@ -130,41 +133,15 @@ export function Buscador() {
                 <p className="mt-5 rounded-2xl bg-sand/70 px-4 py-2.5 text-sm tabular-nums text-muted">
                   {s.cedula} · promoción {s.promocion} · socio {s.id}
                 </p>
+                <p className="mt-4 text-sm font-semibold text-forest-800 group-hover:underline">
+                  Ver perfil
+                </p>
+              </Link>
               </li>
             ))}
           </ul>
         )}
       </section>
     </>
-  );
-}
-
-/** Iniciales dentro de anillos de crecimiento, como el logo. */
-function AvatarAnillos({ iniciales, activo }: { iniciales: string; activo: boolean }) {
-  return (
-    <span className="relative inline-flex h-14 w-14 items-center justify-center">
-      <svg viewBox="0 0 56 56" className="absolute inset-0 h-full w-full" aria-hidden>
-        <circle cx="28" cy="28" r="28" fill={activo ? "#0f2e25" : "#c4d4c4"} />
-        {[25, 21.5].map((r, i) => (
-          <ellipse
-            key={r}
-            cx={28 + i * 0.6}
-            cy={28 - i * 0.4}
-            rx={r}
-            ry={r * 0.95}
-            fill="none"
-            stroke={i === 0 && activo ? "#f1b82d" : activo ? "#5d8a6f" : "#ffffff"}
-            strokeOpacity={activo ? 0.9 : 0.7}
-            strokeWidth={1.2}
-          />
-        ))}
-      </svg>
-      <span
-        className={`relative font-display text-lg ${activo ? "text-gold-200" : "text-forest-950"}`}
-        style={{ fontStretch: "80%" }}
-      >
-        {iniciales}
-      </span>
-    </span>
   );
 }
