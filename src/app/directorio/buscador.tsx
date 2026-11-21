@@ -93,48 +93,57 @@ export function Buscador() {
             </button>
           </div>
         ) : (
-          <div className="overflow-hidden rounded-lg border border-rule bg-paper">
-            <div className="hidden grid-cols-[2fr_1fr_1.5fr_0.8fr_0.8fr] gap-4 border-b border-rule bg-sand/60 px-5 py-3 text-sm font-semibold text-forest-950 md:grid">
-              <span>Socio</span>
-              <span>Seccional</span>
-              <span>Especialidad</span>
-              <span>Promoción</span>
-              <span>Estado</span>
-            </div>
-            <ul className="divide-y divide-rule">
-              {resultados.map((s) => (
-                <li
-                  key={s.id}
-                  className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 px-5 py-4 md:grid-cols-[2fr_1fr_1.5fr_0.8fr_0.8fr] md:items-center"
-                >
-                  <div className="min-w-0">
-                    <p className="font-semibold text-forest-950">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {resultados.map((s) => (
+              <li
+                key={s.id}
+                className="flex flex-col rounded-lg border border-rule bg-paper transition hover:border-forest-500"
+              >
+                <div className="flex items-start gap-4 p-5">
+                  <span
+                    aria-hidden
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-forest-950 font-display text-lg text-gold-200 ring-4 ring-forest-100"
+                  >
+                    {s.nombre[0]}
+                    {s.apellido[0]}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h2 className="font-display text-xl leading-tight text-forest-950">
                       {s.nombre} {s.apellido}
-                    </p>
-                    <p className="text-sm tabular-nums text-muted">
-                      {s.cedula}, socio {s.id}
-                    </p>
+                    </h2>
+                    <p className="mt-0.5 text-sm tabular-nums text-muted">{s.cedula}</p>
                   </div>
-                  <span className="order-last col-span-2 text-sm text-muted md:order-none md:col-span-1 md:text-[15px] md:text-foreground/85">
-                    <span className="md:hidden">{s.especialidad}, seccional </span>
-                    {s.seccional}
+                  <span
+                    className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-0.5 text-sm ${
+                      s.activo ? "bg-forest-100 text-forest-800" : "bg-sand text-muted"
+                    }`}
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${s.activo ? "bg-forest-500" : "bg-muted/50"}`} />
+                    {s.activo ? "Activo" : "Inactivo"}
                   </span>
-                  <span className="hidden text-[15px] text-foreground/85 md:block">{s.especialidad}</span>
-                  <span className="hidden tabular-nums text-[15px] text-foreground/85 md:block">{s.promocion}</span>
-                  <span className="row-start-1 col-start-2 md:col-auto md:row-auto">
-                    <span
-                      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-sm ${
-                        s.activo ? "bg-forest-100 text-forest-800" : "bg-sand text-muted"
-                      }`}
-                    >
-                      <span className={`h-1.5 w-1.5 rounded-full ${s.activo ? "bg-forest-500" : "bg-muted/50"}`} />
-                      {s.activo ? "Activo" : "Inactivo"}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+                </div>
+
+                <dl className="mt-auto grid grid-cols-2 gap-x-4 gap-y-3 border-t border-rule px-5 py-4 text-[15px]">
+                  <div>
+                    <dt className="text-sm text-muted">Seccional</dt>
+                    <dd className="font-medium text-forest-950">{s.seccional}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-sm text-muted">Promoción</dt>
+                    <dd className="tabular-nums text-forest-950">{s.promocion}</dd>
+                  </div>
+                  <div className="col-span-2">
+                    <dt className="text-sm text-muted">Especialidad</dt>
+                    <dd className="text-forest-950">{s.especialidad}</dd>
+                  </div>
+                </dl>
+
+                <p className="border-t border-rule bg-sand/50 px-5 py-2.5 text-sm text-muted">
+                  N.º de socio <span className="font-semibold text-forest-800">{s.id}</span>
+                </p>
+              </li>
+            ))}
+          </ul>
         )}
       </section>
     </>
