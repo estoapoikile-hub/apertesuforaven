@@ -172,8 +172,8 @@ export default function Home() {
               />
             </div>
             <figcaption className="mt-3 text-sm text-muted">
-              Campus de Chorros de Milla, Mérida. Aquí se forman los técnicos
-              superiores forestales desde 1953.
+              Los técnicos superiores forestales se forman en el campus de
+              Chorros de Milla, en Mérida, desde 1953.
             </figcaption>
           </figure>
         </div>
